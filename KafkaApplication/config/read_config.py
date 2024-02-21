@@ -1,14 +1,12 @@
 class read_config():
 
-    """
-    Reads the client configuration from client.properties and returns it as a key-value map
-    """
     def __init__(self):
         self.config = self.create_config()
+        self.client_path = "KafkaApplication/config/client.properties"
 
     def create_config(self):
         config = {}
-        with open("client.properties") as fh:
+        with open(self.client_path) as fh:
             for line in fh:
                 line = line.strip()
                 if len(line) != 0 and line[0] != "#":

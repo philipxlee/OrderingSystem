@@ -1,12 +1,11 @@
 from confluent_kafka import Consumer
-from config import config_manager as config
-from orders import orders_backend as orders
+
 
 class transactions_backend():
 
-    def __init__(self):
-        self.config = config.get_config()
-        self.topic = orders.get_topic()
+    def __init__(self, config):
+        self.config = config
+        self.topic = "order_details"
         self.messages = []
     
     def consume_orders(self):

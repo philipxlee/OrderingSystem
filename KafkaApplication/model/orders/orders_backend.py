@@ -1,23 +1,30 @@
 from confluent_kafka import Producer
 import random
-import config.config_manager as config
+import json
 
 # Constants
 ORDER_COUNT = 10
 
 class orders_backend():
     
-    def __init__(self):
-        self.config = config.get_config()
+    def __init__(self, config):
+        self.config = config
         self.order_count = ORDER_COUNT
         self.orders = []
         self.topic = "order_details"
 
-    def produce_orders(self):
+    def create_orders(self):
         details = ["shoe, shirt, pants, hat, socks, gloves, jacket, tie, belt, watch"]
         for i in range(self.order_count):
-            rand_index = random.randint(1, 10)
-            self.orders.append((str(i), details[rand_index]))
+            rand_index = random.randint(0, len(details) - 1)
+            order_detail = details[rand_index]
+            revenue = random.randint(1, 1000)
+            order_id = str(i)
+            order_data = {
+                "order_detail": order_detail,
+                "revenue": str(revenue)
+            }
+            self.orders.append((order_id, json.dumps(order_data))) 
 
     def produce_orders(self):
         producer = Producer(self.config)
