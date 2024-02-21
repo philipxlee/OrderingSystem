@@ -4,9 +4,9 @@ class read_config():
     Reads the client configuration from client.properties and returns it as a key-value map
     """
     def __init__(self):
-        self.config = self.read_config()
+        self.config = self.create_config()
 
-    def read_config(self):
+    def create_config(self):
         config = {}
         with open("client.properties") as fh:
             for line in fh:
