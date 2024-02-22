@@ -1,19 +1,16 @@
 from confluent_kafka import Consumer
 
 
-class transactions_backend():
+class transactions_backend:
 
     def __init__(self, config):
         self.config = config
         self.topic = "order_details"
         self.messages = []
-    
-    def consume_orders(self):
-        # Sets the consumer group ID and offset  
-        self.config["group.id"] = "python-group-1"
-        self.config["auto.offset.reset"] = "earliest"
 
-        # Creates a new consumer and subscribes to your topic
+    def consume_orders(self):
+        self.config["group.id"] = "transactions-group-1"
+        self.config["auto.offset.reset"] = "earliest"
         consumer = Consumer(self.config)
         consumer.subscribe([self.topic])
         try:
@@ -24,18 +21,12 @@ class transactions_backend():
                     key = msg.key().decode("utf-8")
                     value = msg.value().decode("utf-8")
                     self.messages.append((key, value))
-                    print(f"Consumed message from {self.topic}: \
-                            key = {key:12} value = {value:12}")
+                    print(
+                        f"Consumed message from {self.topic}:\n \
+                            key = {key}\n value = {value}\n\n"
+                    )
         except KeyboardInterrupt:
             pass
         finally:
             # Closes the consumer connection
             consumer.close()
-    
-
-
-
-
-
-        
-
