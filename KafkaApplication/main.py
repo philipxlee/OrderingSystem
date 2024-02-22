@@ -2,6 +2,7 @@ from config import read_config as cfg
 from model.orders import orders_backend as ord
 from model.transactions import transactions_backend as trn
 from model.analytics import analytics_backend as anl
+from model.email import emails_backend as eml
 
 
 class control:
@@ -31,6 +32,12 @@ class control:
         analytics.consume_orders()
         analytics.print_analytics()
 
+    def run_email_backend(self, kafka_client):
+        # Set up email backend and consume orders
+        email = eml.emails_backend(kafka_client)
+        email.consume_orders()
+        email.send_emails()
+
     def run_program(self):
         print("Running orders backend")
         self.run_orders_backend(self.kafka_client)
@@ -38,6 +45,8 @@ class control:
         self.run_transactions_backend(self.kafka_client)
         print("Running analytics backend")
         self.run_analytics_backend(self.kafka_client)
+        print("Running email backend")
+        self.run_email_backend(self.kafka_client)
 
 
 def main():

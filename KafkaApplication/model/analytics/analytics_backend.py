@@ -20,13 +20,11 @@ class analytics_backend:
         consumer.subscribe([self.topic])
         try:
             while True:
-
                 msg = consumer.poll(1.0)
                 if msg is not None and msg.error() is None:
-                    key = msg.key().decode("utf-8")
                     value = json.loads(msg.value().decode("utf-8"))
+                print("Listening to orders and calculating analytics...")
 
-                print(value)
                 # Build analytics
                 self.total_orders += 1
                 self.total_revenue += int(value["revenue"])
