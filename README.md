@@ -13,6 +13,8 @@ This project was made possible with the help of the following:
 
 This project simulates orders using four backends that communicate with Kafka topics:
 
+![Image Description](design.png)
+
 - `orders_backend`: Handles order creation, modification, and cancellation.
 - `transactions_backend`: Manages payment transactions and updates order status.
 - `analytics_backend`: Collects and analyzes data for generating insights and reports.
