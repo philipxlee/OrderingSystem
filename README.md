@@ -9,6 +9,10 @@ This project was made possible with the help of the following:
 - [Confluent Kafka](https://www.confluent.io/): A fully managed Kafka service that provides a reliable and scalable platform for building real-time data pipelines and streaming applications.
 - [ChatGPT](https://github.com/openai/chatgpt): A language model developed by OpenAI for generating human-like text.
 
+## Requirements
+
+> pip install confluent-kafka=2.3.0
+
 ## Features
 
 This project simulates orders using four backends that communicate with Kafka topics:
