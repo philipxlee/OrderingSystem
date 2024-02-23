@@ -25,6 +25,7 @@ class control:
         # Set up transactions backend and consume orders
         transactions = trn.transactions_backend(kafka_client)
         transactions.consume_orders()
+        transactions.produce_orders()
 
     def run_analytics_backend(self, kafka_client):
         # Set up analytics backend and consume orders

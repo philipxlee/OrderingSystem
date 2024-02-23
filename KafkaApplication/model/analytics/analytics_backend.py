@@ -7,7 +7,7 @@ class analytics_backend:
 
     def __init__(self, config):
         self.config = config
-        self.topic = "order_details"
+        self.receive_topic = "order_confirmed"
         self.total_revenue = 0
         self.total_orders = 0
         self.frequently_purchased = defaultdict(int)
@@ -17,18 +17,17 @@ class analytics_backend:
         self.config["group.id"] = "analytics-group-1"
         self.config["auto.offset.reset"] = "earliest"
         consumer = Consumer(self.config)
-        consumer.subscribe([self.topic])
+        consumer.subscribe([self.receive_topic])
         try:
             while True:
                 msg = consumer.poll(1.0)
                 if msg is not None and msg.error() is None:
                     value = json.loads(msg.value().decode("utf-8"))
-                print("Listening to orders and calculating analytics...")
-
-                # Build analytics
-                self.total_orders += 1
-                self.total_revenue += int(value["revenue"])
-                self.frequently_purchased[value["item_purchased"]] += 1
+                    print("Listening to orders and calculating analytics...")
+                    # Build analytics
+                    self.total_orders += 1
+                    self.total_revenue += int(value["revenue"])
+                    self.frequently_purchased[value["item_purchased"]] += 1
 
         except KeyboardInterrupt:
             pass
