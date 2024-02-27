@@ -2,10 +2,18 @@ from collections import defaultdict
 from confluent_kafka import Consumer
 import json
 
+"""
+Analytics backend class is responsible for consuming orders from the order_confirmed topic
+and calculating analytics.
+"""
+
 
 class analytics_backend:
 
     def __init__(self, config):
+        """
+        Initializes the analytics backend with the given configuration.
+        """
         self.config = config
         self.receive_topic = "order_confirmed"
         self.total_revenue = 0
@@ -13,6 +21,9 @@ class analytics_backend:
         self.frequently_purchased = defaultdict(int)
 
     def consume_orders(self):
+        """
+        Consumes orders from the order_confirmed topic and calculates analytics.
+        """
         # Sets the consumer group ID and offset
         self.config["group.id"] = "analytics-group-1"
         self.config["auto.offset.reset"] = "earliest"
@@ -35,6 +46,9 @@ class analytics_backend:
             consumer.close()
 
     def print_analytics(self):
+        """
+        Prints the calculated analytics.
+        """
         print("Total Orders: ", self.total_orders)
         print("Total Revenue: ", self.total_revenue)
         print("Frequently Purchased Items: ", self.frequently_purchased)

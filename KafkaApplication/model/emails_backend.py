@@ -1,15 +1,29 @@
 from confluent_kafka import Consumer
 import json
 
+"""
+Emails backend class is responsible for consuming orders from the order_confirmed topic 
+and sending emails to customers.
+"""
+
 
 class emails_backend:
 
     def __init__(self, config):
+        """
+        Initializes the emails backend with the given configuration.
+
+        Args:
+            config (dict): The configuration dictionary for the Kafka client.
+        """
         self.config = config
         self.receive_topic = "order_confirmed"
         self.emails = []
 
     def consume_orders(self):
+        """
+        Consumes orders from the order_confirmed topic and stores them in the emails list.
+        """
         self.config["group.id"] = "emails-group-1"
         self.config["auto.offset.reset"] = "earliest"
         consumer = Consumer(self.config)
@@ -39,6 +53,9 @@ class emails_backend:
             consumer.close()
 
     def send_emails(self):
+        """
+        Sends emails to customers.
+        """
         for email in self.emails:
             print(f"Sent email to {email[1]}:\n {email[0]}\n\n")
         print("All emails sent!")

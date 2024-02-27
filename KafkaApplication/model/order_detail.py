@@ -1,5 +1,11 @@
 from enum import Enum
 
+"""
+This class is used to define the order details and email addresses of the customers.
+The OrderDetail enum contains the different types of items that can be purchased.
+The OrderEmail enum contains the email addresses of the customers.
+"""
+
 
 class OrderDetail(Enum):
     SHOE = "shoe"

@@ -15,7 +15,8 @@ This project was made possible with the help of the following:
 
 ## Features
 
-This project simulates orders using four backends that communicate with Kafka topics:
+This project simulates orders using four backends that communicate with Kafka topics,
+using a model-controller design pattern:
 
 ![Image Description](design.png)
 

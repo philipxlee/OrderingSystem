@@ -1,10 +1,21 @@
 from confluent_kafka import Consumer, Producer
 import json
 
+"""
+This class is responsible for consuming orders from the order_details topic and 
+producing confirmed orders to the order_confirmed topic.
+"""
+
 
 class transactions_backend:
 
     def __init__(self, config):
+        """
+        Initializes the transactions backend with the given configuration.
+
+        Args:
+            config (dict): The configuration dictionary for the Kafka client.
+        """
         self.config = config
         self.receive_topic = "order_details"
         self.send_topic = "order_confirmed"
@@ -12,6 +23,9 @@ class transactions_backend:
         self.confirmed_orders = []
 
     def consume_orders(self):
+        """
+        Consumes orders from the order_details topic and stores them in the messages list.
+        """
         self.config["group.id"] = "transactions-group-1"
         self.config["auto.offset.reset"] = "earliest"
         consumer = Consumer(self.config)
@@ -35,6 +49,9 @@ class transactions_backend:
             consumer.close()
 
     def produce_orders(self):
+        """
+        Produces confirmed orders to the order_confirmed topic.
+        """
         producer = Producer(self.config)
         for key, val in self.messages:
             order_data = val
