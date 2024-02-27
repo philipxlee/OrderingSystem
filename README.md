@@ -15,8 +15,7 @@ This project was made possible with the help of the following:
 
 ## Features
 
-This project simulates orders using four backends that communicate with Kafka topics,
-using a model-controller design pattern:
+This project simulates orders using four backends that communicate with Kafka topics:
 
 ![Image Description](design.png)
 
@@ -26,3 +25,5 @@ using a model-controller design pattern:
 - `email_backend`: Sends email notifications to customers regarding order updates.
 
 These backends leverage Apache Kafka's distributed streaming platform to enable real-time communication and processing between the different components of the Ordering System.
+
+The program is written in a way that conforms to the model-controller design pattern.
